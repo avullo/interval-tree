@@ -185,21 +185,26 @@ void itree_delete ( itree_t *tree )
   free ( tree );
 }
 
-/* void *itree_find (itree_t *tree, interval_t *interval ) */
-/* { */
-/*   itreenode_t *it = tree->root; */
+void *itree_find (itree_t *tree, interval_t *interval )
+{
+  itreenode_t *it = tree->root;
 
-/*   while ( it != NULL ) { */
-/*     int cmp = tree->cmp ( it->data, data ); */
+  while ( it != NULL ) {
+    /* int cmp = tree->cmp ( it->data, data ); */
 
-/*     if ( cmp == 0 ) */
-/*       break; */
+    /* if ( cmp == 0 ) */
+    /*   break; */
 
-/*     it = it->link[cmp < 0]; */
-/*   } */
+    /* it = it->link[cmp < 0]; */
 
-/*   return it == NULL ? NULL : it->data; */
-/* } */
+    if ( overlap( it->interval, interval ) )
+      break;
+
+    it = it->link[it->link[0] == NULL || it->link[0]->max < interval->low];
+  }
+
+  return it == NULL ? NULL : it->interval;
+}
 
 int itree_insert ( itree_t *tree, interval_t *interval )
 {
@@ -222,7 +227,7 @@ int itree_insert ( itree_t *tree, interval_t *interval )
     /* Search down the tree, saving rebalance points */
     for ( s = p = t->link[1]; ; p = q ) {
       /* Duplicates admitted, placed in the right subtree */
-      dir = p->interval->low <= interval->low; // tree->cmp ( p->data, data ) < 0;
+      dir = p->interval->low <= interval->low; /* tree->cmp ( p->data, data ) < 0; */
       q = p->link[dir];
 
       p->max = p->max < interval->high ? interval->high : p->max; /* Update ancestor's max if needed */
@@ -243,7 +248,7 @@ int itree_insert ( itree_t *tree, interval_t *interval )
 
     /* Update balance factors */
     for ( p = s; p != q; p = p->link[dir] ) {
-      dir = p->interval->low <= interval->low; // tree->cmp ( p->data, data ) < 0;
+      dir = p->interval->low <= interval->low; /* tree->cmp ( p->data, data ) < 0; */
       p->balance += dir == 0 ? -1 : +1;
     }
 
@@ -251,7 +256,7 @@ int itree_insert ( itree_t *tree, interval_t *interval )
 
     /* Rebalance if necessary */
     if ( abs ( s->balance ) > 1 ) {
-      dir = s->interval->low <= interval->low; // tree->cmp ( s->data, data ) < 0;
+      dir = s->interval->low <= interval->low; /* tree->cmp ( s->data, data ) < 0; */
       insert_balance ( s, dir );
     }
 
@@ -389,6 +394,11 @@ static interval_t *start (itreetrav_t *trav, itree_t *tree, int dir )
     }
   }
 
+#ifdef DEBUG
+  if(trav->it)
+    printf("[%.1f, %.1f] (%d) (%.1f)\n", trav->it->interval->low, trav->it->interval->high, *(int*)trav->it->interval->data, trav->it->max);
+#endif
+  
   return trav->it == NULL ? NULL : trav->it->interval;
 }
 
@@ -423,6 +433,11 @@ static interval_t *move (itreetrav_t *trav, int dir )
     } while ( last == trav->it->link[dir] );
   }
 
+#ifdef DEBUG
+  if(trav->it)
+    printf("[%.1f, %.1f] (%d) (%.1f)\n", trav->it->interval->low, trav->it->interval->high, *(int*)trav->it->interval->data, trav->it->max);
+#endif
+  
   return trav->it == NULL ? NULL : trav->it->interval;
 }
 
