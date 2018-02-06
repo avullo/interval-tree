@@ -7,6 +7,7 @@
   http://www.eternallyconfuzzled.com/Libraries.aspx
 
 */
+#include "interval.h"
 #include "itree.h"
 
 #ifdef __cplusplus
@@ -23,10 +24,6 @@ using std::size_t;
 #ifndef HEIGHT_LIMIT
 #define HEIGHT_LIMIT 64 /* Tallest allowable tree */
 #endif
-
-int overlap(const interval_t* i1, const interval_t* i2) {
-  return i1->low <= i2->high && i2->low <= i1->high;
-}
 
 typedef struct itreenode {
   int               balance;   /* Balance factor */
@@ -48,7 +45,7 @@ struct itreetrav {
   itreenode_t *path[HEIGHT_LIMIT]; /* Traversal path */
   size_t       top;                /* Top of stack */
 };
-
+  
 /* Two way single rotation */
 #define single(root,dir) do {         \
   itreenode_t *save = root->link[!dir]; \
@@ -185,7 +182,7 @@ void itree_delete ( itree_t *tree )
   free ( tree );
 }
 
-void *itree_find (itree_t *tree, interval_t *interval )
+interval_t *itree_find ( itree_t *tree, interval_t *interval )
 {
   itreenode_t *it = tree->root;
 
@@ -197,7 +194,7 @@ void *itree_find (itree_t *tree, interval_t *interval )
 
     /* it = it->link[cmp < 0]; */
 
-    if ( overlap( it->interval, interval ) )
+    if ( interval_overlap( it->interval, interval ) )
       break;
 
     it = it->link[it->link[0] == NULL || it->link[0]->max < interval->low];
@@ -205,6 +202,15 @@ void *itree_find (itree_t *tree, interval_t *interval )
 
   return it == NULL ? NULL : it->interval;
 }
+
+interval_t *itree_findall(itree_t *tree, interval_t *interval )
+{
+
+  itreenode_t *it = tree->root;
+
+  return it == NULL ? NULL : it->interval;
+}
+
 
 int itree_insert ( itree_t *tree, interval_t *interval )
 {

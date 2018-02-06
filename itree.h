@@ -20,10 +20,7 @@ extern "C" {
 #include <stddef.h>
 #endif
 
-typedef struct interval {
-  float  low, high; /* Interval boundaries, inclusive */
-  void  *data;      /* User-defined content */
-} interval_t;
+#include "interval.h"
 
 /* Opaque types */
 typedef struct itree itree_t;
@@ -36,7 +33,8 @@ typedef void  (*rel_f) ( void* p );
 /* Interval tree functions */
 itree_t *itree_new ( dup_f dup, rel_f rel );
 void     itree_delete ( itree_t *tree );
-void    *itree_find ( itree_t *tree, interval_t *interval );
+interval_t    *itree_find ( itree_t *tree, interval_t *interval );
+interval_t    *itree_findall ( itree_t *tree, interval_t *interval );
 int      itree_insert ( itree_t *tree, interval_t *interval );
   // int      itree_erase ( itree_t *tree, interval_t *interval );
 size_t   itree_size ( itree_t *tree );
