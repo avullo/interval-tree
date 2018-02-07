@@ -278,94 +278,125 @@ int itree_insert ( itree_t *tree, interval_t *interval )
   return 1;
 }
 
-/* int itree_erase ( itree_t *tree, interval_t *interval ) */
-/* { */
-/*   if ( tree->root != NULL ) { */
-/*     itreenode_t *it, *up[HEIGHT_LIMIT]; */
-/*     int upd[HEIGHT_LIMIT], top = 0; */
-/*     int done = 0; */
+int itree_erase ( itree_t *tree, interval_t *interval )
+{
+  if ( tree->root != NULL ) {
+    itreenode_t *it, *up[HEIGHT_LIMIT];
+    int upd[HEIGHT_LIMIT], top = 0, top_max;
+    int done = 0;
 
-/*     it = tree->root; */
+    it = tree->root;
 
-/*     /\* Search down tree and save path *\/ */
-/*     for ( ; ; ) { */
-/*       if ( it == NULL ) */
-/*         return 0; */
-/*       else if ( tree->cmp ( it->data, data ) == 0 ) */
-/*         break; */
+    /* Search down tree and save path */
+    for ( ; ; ) {
+      if ( it == NULL )
+        return 0;
+      else if ( interval_equal ( it->interval, interval ) ) /* ( tree->cmp ( it->data, data ) == 0 ) */
+        break;
 
-/*       /\* Push direction and node onto stack *\/ */
-/*       upd[top] = tree->cmp ( it->data, data ) < 0; */
-/*       up[top++] = it; */
+      /* Push direction and node onto stack */
+      upd[top] = it->interval->low <= interval->low; /* tree->cmp ( it->data, data ) < 0; */
+      up[top++] = it;
 
-/*       it = it->link[upd[top - 1]]; */
-/*     } */
+      it = it->link[upd[top - 1]];
+    }
 
-/*     /\* Remove the node *\/ */
-/*     if ( it->link[0] == NULL || it->link[1] == NULL ) { */
-/*       /\* Which child is not null? *\/ */
-/*       int dir = it->link[0] == NULL; */
+    /* Remove the node */
+    if ( it->link[0] == NULL || it->link[1] == NULL ) {
+      /* Which child is not null? */
+      int dir = it->link[0] == NULL;
 
-/*       /\* Fix parent *\/ */
-/*       if ( top != 0 ) */
-/*         up[top - 1]->link[upd[top - 1]] = it->link[dir]; */
-/*       else */
-/*         tree->root = it->link[dir]; */
+      /* Fix parent */
+      if ( top != 0 )
+        up[top - 1]->link[upd[top - 1]] = it->link[dir];
+      else
+        tree->root = it->link[dir];
 
-/*       tree->rel ( it->data ); */
-/*       free ( it ); */
-/*     } */
-/*     else { */
-/*       /\* Find the inorder successor *\/ */
-/*       itreenode_t *heir = it->link[1]; */
-/*       void *save; */
+      tree->rel ( it->interval->data );
+      free ( it->interval );
+      free ( it );
+    }
+    else {
+      /* Find the inorder successor */
+      itreenode_t *heir = it->link[1];
+      void *save;
       
-/*       /\* Save this path too *\/ */
-/*       upd[top] = 1; */
-/*       up[top++] = it; */
+      /* Save this path too */
+      upd[top] = 1;
+      up[top++] = it;
 
-/*       while ( heir->link[0] != NULL ) { */
-/*         upd[top] = 0; */
-/*         up[top++] = heir; */
-/*         heir = heir->link[0]; */
-/*       } */
+      while ( heir->link[0] != NULL ) {
+        upd[top] = 0;
+        up[top++] = heir;
+        heir = heir->link[0];
+      }
 
-/*       /\* Swap data *\/ */
-/*       save = it->data; */
-/*       it->data = heir->data; */
-/*       heir->data = save; */
+      /* Swap data */
+      save = it->interval;
+      it->interval = heir->interval;
+      heir->interval = save;
 
-/*       /\* Unlink successor and fix parent *\/ */
-/*       up[top - 1]->link[up[top - 1] == it] = heir->link[1]; */
+      /* Unlink successor and fix parent */
+      up[top - 1]->link[up[top - 1] == it] = heir->link[1];
 
-/*       tree->rel ( heir->data ); */
-/*       free ( heir ); */
-/*     } */
+      tree->rel ( heir->interval->data );
+      free ( heir->interval );
+      free ( heir );
+    }
 
-/*     /\* Walk back up the search path *\/ */
-/*     while ( --top >= 0 && !done ) { */
-/*       /\* Update balance factors *\/ */
-/*       up[top]->balance += upd[top] != 0 ? -1 : +1; */
+    /* Update max: walk back up the search path and bubbles up to root */
+    top_max = top;
 
-/*       /\* Terminate or rebalance as necessary *\/ */
-/*       if ( abs ( up[top]->balance ) == 1 ) */
-/*         break; */
-/*       else if ( abs ( up[top]->balance ) > 1 ) { */
-/*         remove_balance ( up[top], upd[top], done ); */
+#ifdef DEBUG
+    printf("\nTop: %d\n", top_max);
+#endif
+    
+    while ( --top_max >= 0 ) {
+      
+#ifdef DEBUG
+      printf("[%.1f, %.1f] (%d) (%.1f) - ", up[top_max]->interval->low, up[top_max]->interval->high, *(int*)up[top_max]->interval->data, up[top_max]->max);
+#endif
+      
+      if ( up[top_max]->link[0] != NULL && up[top_max]->link[1] != NULL ) {
+	float left_right_max = up[top_max]->link[0]->max < up[top_max]->link[1]->max ? up[top_max]->link[1]->max : up[top_max]->link[0]->max;
+	printf("One\n");
+	up[top_max]->max = up[top_max]->interval->high < left_right_max ? left_right_max : up[top_max]->interval->high;
+      } else if ( up[top_max]->link[0] != NULL && up[top_max]->link[1] == NULL ) {
+	printf("Two\n");
+	up[top_max]->max = up[top_max]->interval->high < up[top_max]->link[0]->max ? up[top_max]->link[0]->max : up[top_max]->interval->high;
+      } else if ( up[top_max]->link[0] == NULL && up[top_max]->link[1] != NULL ) {
+	printf("Three\n");
+	up[top_max]->max = up[top_max]->interval->high < up[top_max]->link[1]->max ? up[top_max]->link[1]->max : up[top_max]->interval->high;
+      } else {
+	printf("Four\n");
+	up[top_max]->max = up[top_max]->interval->high;
+      }
+    }
+    
+    /* Walk back up the search path */
+    while ( --top >= 0 && !done ) {
+      /* Update balance factors */
+      up[top]->balance += upd[top] != 0 ? -1 : +1;
 
-/*         /\* Fix parent *\/ */
-/*         if ( top != 0 ) */
-/*           up[top - 1]->link[upd[top - 1]] = up[top]; */
-/*         else */
-/*           tree->root = up[0]; */
-/*       } */
-/*     } */
+      /* Terminate or rebalance as necessary */
+      if ( abs ( up[top]->balance ) == 1 )
+        break;
+      else if ( abs ( up[top]->balance ) > 1 ) {
+        remove_balance ( up[top], upd[top], done );
 
-/*     --tree->size; */
-/*   } */
+        /* Fix parent */
+        if ( top != 0 )
+          up[top - 1]->link[upd[top - 1]] = up[top];
+        else
+          tree->root = up[0];
+      }
+    }
 
-/*   return 1; */
-/* } */
+    --tree->size;
+  }
+
+  return 1;
+}
 
 size_t itree_size ( itree_t *tree )
 {

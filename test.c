@@ -60,6 +60,12 @@ int main() {
 
   printf("\nTree size: %zu\n\n", itree_size(t));
 
+  itreetrav* trav = itreetnew();
+  interval_t* item;
+  for(item = itreetfirst(trav, t); item!=NULL; item=itreetnext(trav))
+    //print_interval(item);
+  printf("\n");
+
   interval_t* query = make_interval(6,7,0);
   printf("Query: [%.1f, %.1f]\n", query->low, query->high);
   interval_t* result = itree_find(t, query);
@@ -86,12 +92,8 @@ int main() {
   else 
     printf("Overlap: [%.1f, %.1f]\n\n", result->low, result->high);
 
-  /* int query = 30; */
-  /* int* result = (int*)itree_find(t, &query); */
-  /* printf("Query: %d -- Found: %d\n", query, result == NULL?0:1); */
-
-  /* printf("Deleting node (30) - "); */
-  /* itree_erase(t, &query)?printf("OK\n"):printf("KO\n"); */
+  printf("Deleting interval [30, 40] - ");
+  itree_erase(t, ints[5])?printf("OK\n"):printf("KO\n");
 
   /* printf("Tree size: %zu\n", itree_size(t)); */
 
@@ -102,8 +104,6 @@ int main() {
   /* result = (int*)itree_find(t, &query); */
   /* printf("Query: %d -- Found: %d\n", query, result == NULL?0:1); */
 
-  itreetrav* trav = itreetnew();
-  interval_t* item;
   for(item = itreetfirst(trav, t); item!=NULL; item=itreetnext(trav))
     //print_interval(item);
   printf("\n");
