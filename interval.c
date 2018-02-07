@@ -19,3 +19,7 @@ using std::size_t;
 int interval_overlap(const interval_t* i1, const interval_t* i2) {
   return i1->low <= i2->high && i2->low <= i1->high;
 }
+
+int interval_equal(const interval_t* i1, const interval_t* i2) {
+  return i1->low == i2->low && i1->high == i2->high;
+}

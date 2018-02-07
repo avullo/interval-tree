@@ -27,6 +27,7 @@ typedef struct interval {
 
 /* Interval functions */
 int interval_overlap(const interval_t*, const interval_t*);
+int interval_equal(const interval_t*, const interval_t*);
 
 #ifdef __cplusplus
 }
