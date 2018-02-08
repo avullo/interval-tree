@@ -174,12 +174,65 @@ int ilist_append(ilist_t *list, interval_t *i) {
   return 0;
 }
 
-ilisttrav_t *ilisttrav_new( void ) {
-  return (ilisttrav_t*) malloc ( sizeof ( ilisttrav_t ) );
+ilisttrav_t *ilisttrav_new( ilist_t *list ) {
+  if ( list == NULL )
+    return NULL;
+  
+  ilisttrav_t *trav = (ilisttrav_t*) malloc ( sizeof ( ilisttrav_t ) );
+
+  if ( trav != NULL )
+    trav->list = list;
+  
+  return trav;
 }
 
 void ilisttrav_delete ( ilisttrav_t *trav ) {
   free ( trav );
+}
+
+const interval_t *ilisttrav_first ( ilisttrav_t *trav ) {
+  if ( trav->list == NULL )
+    return NULL;
+  
+  trav->it = trav->list->head->next;
+
+  return trav->it == NULL || trav->it == trav->list->tail ? NULL : trav->it->interval;
+}
+
+const interval_t  *ilisttrav_last ( ilisttrav_t *trav ) {
+  if ( trav->list == NULL )
+    return NULL;
+  
+  trav->it = trav->list->head;
+
+  while ( trav->it->next != trav->list->tail )
+    trav->it = trav->it->next;
+  
+  return trav->it == trav->list->head || trav->it == NULL ? NULL : trav->it->interval;
+}
+
+const interval_t  *ilisttrav_next ( ilisttrav_t *trav ) {
+  if ( trav == NULL)
+    return NULL;
+  
+  trav->it = trav->it->next;
+
+  return trav->it == NULL || trav->it == trav->list->tail ? NULL : trav->it->interval;
+}
+
+/* Very inefficient, need a doubly linked list to properly support this */
+const interval_t  *ilisttrav_prev ( ilisttrav_t *trav ) {
+  if ( trav == NULL )
+    return NULL;
+
+  ilistnode_t *it = trav->list->head;
+
+  while ( it->next != trav->it )
+    it = it->next;
+
+  trav->it = it;
+  
+  return trav->it == trav->list->head || trav->it == NULL ? NULL : trav->it->interval;
 }
 
 

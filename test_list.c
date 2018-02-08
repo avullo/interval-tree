@@ -17,8 +17,9 @@ interval_t* make_interval(int low, int high, int data) {
   return i;
 }
 
-void print_interval(interval_t* i) {
-  printf("[%.1f, %.1f] (%d)\n", i->low, i->high, *(int*)i->data);
+void print_interval(const interval_t* i) {
+  if ( i != NULL )
+    printf("[%.1f, %.1f] (%d)\n", i->low, i->high, *(int*)i->data);
 }
 
 void destroy_interval(interval_t* i) {
@@ -47,12 +48,17 @@ int main() {
 
   printf("\nList size: %zu\n\n", ilist_size(l));
 
-  /* itreetrav* trav = itreetnew(); */
-  /* interval_t* item; */
-  /* for(item = itreetfirst(trav, t); item!=NULL; item=itreetnext(trav)) */
-  /*   //print_interval(item); */
+  ilisttrav_t* trav = ilisttrav_new(l);
+  const interval_t* item;
+  /* for(item = ilisttrav_first(trav); item!=NULL; item=ilisttrav_next(trav)) */
+  /*   print_interval(item); */
   /* printf("\n"); */
 
+  for(item = ilisttrav_last(trav); item!=NULL; item=ilisttrav_prev(trav))
+    print_interval(item);
+  printf("\n");
+
+  
   /* interval_t* query = make_interval(6,7,0); */
   /* printf("Query: [%.1f, %.1f]\n", query->low, query->high); */
   /* interval_t* result = itree_find(t, query); */
@@ -98,7 +104,7 @@ int main() {
   /* /\* printf("First: %d\n", *(int*)jsw_avltfirst(trav, t)); *\/ */
   /* /\* printf("Last: %d\n", *(int*)jsw_avltlast(trav, t)); *\/ */
 
-  /* itreetdelete(trav); */
+  ilisttrav_delete(trav);
   ilist_delete(l);
 
   for(i=0; i<6; ++i)

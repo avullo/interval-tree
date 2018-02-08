@@ -27,22 +27,22 @@ typedef struct ilist ilist_t;
 typedef struct ilisttrav ilisttrav_t;
   
 /* Interval functions */
-int interval_overlap(const interval_t*, const interval_t*);
-int interval_equal(const interval_t*, const interval_t*);
+int interval_overlap ( const interval_t*, const interval_t* );
+int interval_equal ( const interval_t*, const interval_t* );
 
 /* Interval list functions */
-ilist_t     *ilist_new();
-void        ilist_delete(ilist_t*);
-size_t      ilist_size(ilist_t*);
-int         ilist_append(ilist_t*, interval_t*);
+ilist_t     *ilist_new ();
+void        ilist_delete ( ilist_t* );
+size_t      ilist_size ( ilist_t* );
+int         ilist_append ( ilist_t*, interval_t* );
 
 /* Interval list traversal functions */
-ilisttrav_t *ilisttrav_new ( void );
+ilisttrav_t *ilisttrav_new ( ilist_t* );
 void        ilisttrav_delete ( ilisttrav_t *trav );
-interval_t  *ilistrav_first ( ilisttrav_t *trav, ilist_t *list );
-interval_t  *ilisttrav_last ( ilisttrav_t *trav, ilist_t *list );
-interval_t  *ilistrav_next ( ilisttrav_t *trav );
-interval_t  *ilistrav_prev ( ilisttrav_t *trav );
+const interval_t  *ilisttrav_first ( ilisttrav_t *trav );
+const interval_t  *ilisttrav_last ( ilisttrav_t *trav );
+const interval_t  *ilisttrav_next ( ilisttrav_t *trav );
+const interval_t  *ilisttrav_prev ( ilisttrav_t *trav );
 
 #ifdef __cplusplus
 }
