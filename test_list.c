@@ -29,7 +29,7 @@ void destroy_interval(interval_t* i) {
 
 int main() {
   ilist_t* l = ilist_new();
-  assert(1);
+  assert(l);
   
   interval_t* ints[] = { make_interval(15,20,10),
 			 make_interval(10,30,20),
@@ -49,6 +49,8 @@ int main() {
   printf("\nList size: %zu\n\n", ilist_size(l));
 
   ilisttrav_t* trav = ilisttrav_new(l);
+  assert(trav);
+  
   const interval_t* item;
   for(item = ilisttrav_first(trav); item!=NULL; item=ilisttrav_next(trav))
     print_interval(item);
