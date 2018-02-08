@@ -4,10 +4,7 @@
 /*
   Interval Tree library
 
-  This is an adaptation of the AVL balanced tree C library
-  created by Julienne Walker which can be found here:
-
-  http://www.eternallyconfuzzled.com/Libraries.aspx
+  Representing and operating an interval.
 
 */
 #ifdef __cplusplus
@@ -22,12 +19,30 @@ extern "C" {
 
 typedef struct interval {
   float  low, high; /* Interval boundaries, inclusive */
-  void  *data;      /* User-defined content */
+  void   *data;     /* User-defined content */
 } interval_t;
 
+/* Declarations for an interval list, opaque types */
+typedef struct ilist ilist_t;
+typedef struct ilisttrav ilisttrav_t;
+  
 /* Interval functions */
 int interval_overlap(const interval_t*, const interval_t*);
 int interval_equal(const interval_t*, const interval_t*);
+
+/* Interval list functions */
+ilist_t     *ilist_new();
+void        ilist_delete(ilist_t*);
+size_t      ilist_size(ilist_t*);
+int         ilist_append(ilist_t*, interval_t*);
+
+/* Interval list traversal functions */
+ilisttrav_t *ilisttnew ( void );
+void        ilistdelete ( ilisttrav_t *trav );
+interval_t  *ilistfirst ( ilisttrav_t *trav, ilist_t *list );
+interval_t  *ilistlast ( ilisttrav_t *trav, ilist_t *list );
+interval_t  *ilistnext ( ilisttrav_t *trav );
+interval_t  *ilisttprev ( ilisttrav_t *trav );
 
 #ifdef __cplusplus
 }
