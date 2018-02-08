@@ -50,59 +50,13 @@ int main() {
 
   ilisttrav_t* trav = ilisttrav_new(l);
   const interval_t* item;
-  /* for(item = ilisttrav_first(trav); item!=NULL; item=ilisttrav_next(trav)) */
-  /*   print_interval(item); */
-  /* printf("\n"); */
+  for(item = ilisttrav_first(trav); item!=NULL; item=ilisttrav_next(trav))
+    print_interval(item);
+  printf("\n");
 
   for(item = ilisttrav_last(trav); item!=NULL; item=ilisttrav_prev(trav))
     print_interval(item);
   printf("\n");
-
-  
-  /* interval_t* query = make_interval(6,7,0); */
-  /* printf("Query: [%.1f, %.1f]\n", query->low, query->high); */
-  /* interval_t* result = itree_find(t, query); */
-  /* if(result == NULL) */
-  /*   printf("No overlapping interval\n\n"); */
-  /* else  */
-  /*   printf("Overlap: [%.1f, %.1f]\n\n", result->low, result->high); */
-
-  /* query->low = 1; */
-  /* query->high = 4; */
-  /* printf("Query: [%.1f, %.1f]\n", query->low, query->high); */
-  /* result = itree_find(t, query); */
-  /* if(result == NULL) */
-  /*   printf("No overlapping interval\n\n"); */
-  /* else  */
-  /*   printf("Overlap: [%.1f, %.1f]\n\n", result->low, result->high); */
-
-  /* query->low = 18; */
-  /* query->high = 25; */
-  /* printf("Query: [%.1f, %.1f]\n", query->low, query->high); */
-  /* result = itree_find(t, query); */
-  /* if(result == NULL) */
-  /*   printf("No overlapping interval\n\n"); */
-  /* else  */
-  /*   printf("Overlap: [%.1f, %.1f]\n\n", result->low, result->high); */
-
-  /* printf("Deleting interval [30, 40] - "); */
-  /* itree_erase(t, ints[5])?printf("OK\n"):printf("KO\n"); */
-
-  /* /\* printf("Tree size: %zu\n", itree_size(t)); *\/ */
-
-  /* /\* result = (int*)itree_find(t, &query); *\/ */
-  /* /\* printf("Query: %d -- Found: %d\n", query, result == NULL?0:1); *\/ */
-  
-  /* /\* query = 18; *\/ */
-  /* /\* result = (int*)itree_find(t, &query); *\/ */
-  /* /\* printf("Query: %d -- Found: %d\n", query, result == NULL?0:1); *\/ */
-
-  /* for(item = itreetfirst(trav, t); item!=NULL; item=itreetnext(trav)) */
-  /*   //print_interval(item); */
-  /* printf("\n"); */
-  
-  /* /\* printf("First: %d\n", *(int*)jsw_avltfirst(trav, t)); *\/ */
-  /* /\* printf("Last: %d\n", *(int*)jsw_avltlast(trav, t)); *\/ */
 
   ilisttrav_delete(trav);
   ilist_delete(l);
