@@ -37,12 +37,12 @@ size_t      ilist_size(ilist_t*);
 int         ilist_append(ilist_t*, interval_t*);
 
 /* Interval list traversal functions */
-ilisttrav_t *ilisttnew ( void );
-void        ilistdelete ( ilisttrav_t *trav );
-interval_t  *ilistfirst ( ilisttrav_t *trav, ilist_t *list );
-interval_t  *ilistlast ( ilisttrav_t *trav, ilist_t *list );
-interval_t  *ilistnext ( ilisttrav_t *trav );
-interval_t  *ilisttprev ( ilisttrav_t *trav );
+ilisttrav_t *ilisttrav_new ( void );
+void        ilisttrav_delete ( ilisttrav_t *trav );
+interval_t  *ilistrav_first ( ilisttrav_t *trav, ilist_t *list );
+interval_t  *ilisttrav_last ( ilisttrav_t *trav, ilist_t *list );
+interval_t  *ilistrav_next ( ilisttrav_t *trav );
+interval_t  *ilistrav_prev ( ilisttrav_t *trav );
 
 #ifdef __cplusplus
 }
