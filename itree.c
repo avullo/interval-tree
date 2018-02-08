@@ -346,31 +346,20 @@ int itree_erase ( itree_t *tree, interval_t *interval )
 
     /* Update max: walk back up the search path and bubbles up to root */
     top_max = top;
-
-#ifdef DEBUG
-    printf("\nTop: %d\n", top_max);
-#endif
     
     while ( --top_max >= 0 ) {
       
-#ifdef DEBUG
-      printf("[%.1f, %.1f] (%d) (%.1f) - ", up[top_max]->interval->low, up[top_max]->interval->high, *(int*)up[top_max]->interval->data, up[top_max]->max);
-#endif
+      itreenode_t *left = up[top_max]->link[0], *right = up[top_max]->link[1];
       
-      if ( up[top_max]->link[0] != NULL && up[top_max]->link[1] != NULL ) {
-	float left_right_max = up[top_max]->link[0]->max < up[top_max]->link[1]->max ? up[top_max]->link[1]->max : up[top_max]->link[0]->max;
-	printf("One\n");
+      if ( left != NULL && right != NULL ) {
+	float left_right_max = left->max < right->max ? right->max : left->max;
 	up[top_max]->max = up[top_max]->interval->high < left_right_max ? left_right_max : up[top_max]->interval->high;
-      } else if ( up[top_max]->link[0] != NULL && up[top_max]->link[1] == NULL ) {
-	printf("Two\n");
-	up[top_max]->max = up[top_max]->interval->high < up[top_max]->link[0]->max ? up[top_max]->link[0]->max : up[top_max]->interval->high;
-      } else if ( up[top_max]->link[0] == NULL && up[top_max]->link[1] != NULL ) {
-	printf("Three\n");
-	up[top_max]->max = up[top_max]->interval->high < up[top_max]->link[1]->max ? up[top_max]->link[1]->max : up[top_max]->interval->high;
-      } else {
-	printf("Four\n");
+      } else if ( left != NULL && right == NULL ) {
+	up[top_max]->max = up[top_max]->interval->high < left->max ? left->max : up[top_max]->interval->high;
+      } else if ( left == NULL && right != NULL ) {
+	up[top_max]->max = up[top_max]->interval->high < right->max ? right->max : up[top_max]->interval->high;
+      } else
 	up[top_max]->max = up[top_max]->interval->high;
-      }
     }
     
     /* Walk back up the search path */
