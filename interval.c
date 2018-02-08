@@ -174,6 +174,15 @@ int ilist_append(ilist_t *list, interval_t *i) {
   return 0;
 }
 
+ilisttrav_t *ilisttrav_new( void ) {
+  return (ilisttrav_t*) malloc ( sizeof ( ilisttrav_t ) );
+}
+
+void ilisttrav_delete ( ilisttrav_t *trav ) {
+  free ( trav );
+}
+
+
 int interval_overlap(const interval_t* i1, const interval_t* i2) {
   return i1->low <= i2->high && i2->low <= i1->high;
 }
