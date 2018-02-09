@@ -17,6 +17,7 @@ AC_CONFIG_HEADERS([config.h])
 # automake to create objects such as .o in sub-directories rather than placing
 # all artifacts in the top level directory.
 AM_INIT_AUTOMAKE([subdir-objects foreign -Wall -Werror])
+AM_PROG_AR
 # PKG_PROG_PKG_CONFIG
 
 # Remember externally set CFLAGS

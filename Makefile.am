@@ -19,4 +19,4 @@ AM_CPPFLAGS = -I$(top_srcdir)/src
 
 lib_LIBRARIES = libitree.a
 libitree_a_SOURCES = src/itree.h src/interval.h src/itree.c src/interval.c
-include_HEADERS = src/itreee.h src/interval.h
+include_HEADERS = src/itree.h src/interval.h
