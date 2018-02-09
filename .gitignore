@@ -85,3 +85,5 @@ stamp-h1
 *.lo
 *.gcno
 *.gcda
+ar-lib
+src/.dirstamp
