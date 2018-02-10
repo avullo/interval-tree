@@ -40,7 +40,6 @@ AC_LANG([C])
 # Checks for libraries.
 # PKG_CHECK_MODULES([GLIB], [glib-2.0], [have_libglib=yes], [have_libglib=no])
 # AM_CONDITIONAL([GLIB],  [test "$have_libglib" = "yes"])
-
 # PKG_CHECK_MODULES([SQLITE3], [sqlite3], [have_libsqlite3=yes], [have_libsqlite3=no])
 # AM_CONDITIONAL([LIB_SQLITE3],  [test "$have_libsqlite3" = "yes"])
 PKG_CHECK_MODULES([CHECK], [check])

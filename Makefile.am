@@ -24,12 +24,12 @@ include_HEADERS = src/itree.h src/interval.h
 
 # Testing setup. Type 'make check' or 'make recheck' to run the tests.
 # TESTS defines a list of tests to run. Define their sources in the usual way.
-# INTERVAL_TREE_TESTS = tests/interval # tests/interval_list tests/interval_tree
-# TESTS = $(INTERVAL_TREE_TESTS)
-# check_PROGRAMS = $(INTERVAL_TREE_TESTS)
+INTERVAL_TREE_TESTS = tests/interval # tests/interval_list tests/interval_tree
+TESTS = $(INTERVAL_TREE_TESTS)
+check_PROGRAMS = $(INTERVAL_TREE_TESTS)
 
-# tests_interval_SOURCES = tests/interval.c
-# tests_interval_CFLAGS = $(AM_CFLAGS) # so that test find the header files
-# tests_interval_LDADD = $(top_builddir)/libitree.a
+tests_interval_SOURCES = tests/interval.c
+tests_interval_CFLAGS = $(AM_CFLAGS) # so that test find the header files
+tests_interval_LDADD = $(top_builddir)/libitree.a
 
 # noinst_PROGRAMS = tests/interval # tests/interval_list tests/interval_tree
