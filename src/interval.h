@@ -27,7 +27,6 @@ typedef struct interval {
   void   *data;     /* User-defined content */
   dup_f  dup;       /* Clone an interval data item */
   rel_f  rel;       /* Destroy an interval data item */
-  int    own;       /* Whether the interval owns the data, i.e. can destroy */
 
 } interval_t;
 
@@ -36,7 +35,7 @@ typedef struct ilist ilist_t;
 typedef struct ilisttrav ilisttrav_t;
   
 /* Interval functions */
-interval_t *interval_new ( float, float, void*, dup_f, rel_f, int );
+interval_t *interval_new ( float, float, void*, dup_f, rel_f );
 interval_t *interval_copy(const interval_t*);
 void       interval_delete ( interval_t* );
 int        interval_overlap ( const interval_t*, const interval_t* );

@@ -43,7 +43,7 @@ struct ilisttrav {
 
 };
 
-interval_t *interval_new ( float low, float high, void *data, dup_f dup, rel_f rel, int own ) {
+interval_t *interval_new ( float low, float high, void *data, dup_f dup, rel_f rel ) {
 
   interval_t *ri = (interval_t*) malloc ( sizeof *ri );
 
@@ -54,18 +54,13 @@ interval_t *interval_new ( float low, float high, void *data, dup_f dup, rel_f r
   ri->high = high;
   ri->dup = dup;
   ri->rel = rel;
-  ri->own = own;
-
-  if ( ri->own )
-    ri->data = data;
-  else
-    ri->data = ri->dup( data );
+  ri->data = ri->dup( data );
   
   return ri;
 }
 
 interval_t *interval_copy ( const interval_t *i ) {
-  return interval_new ( i->low, i->high, i->data, i->dup, i->rel, 0 );
+  return interval_new ( i->low, i->high, i->data, i->dup, i->rel );
 }
 
 void interval_delete ( interval_t *i ) {
