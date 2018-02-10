@@ -69,6 +69,7 @@ void interval_delete ( interval_t *i ) {
     i->rel ( i->data );
     free ( i );
   }
+
 }
 
 int interval_overlap(const interval_t* i1, const interval_t* i2) {
