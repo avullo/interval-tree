@@ -74,3 +74,39 @@ AC_CONFIG_FILES([Makefile])
 
 # Last line: actually generate all required output files.
 AC_OUTPUT
+
+dnl AC_MSG_RESULT([
+dnl Configure Information:
+dnl   Preprocessor      :
+dnl     CPPFLAGS        : $CPPFLAGS
+
+dnl   C Compiler        : $CC
+dnl     DEFS            :   $DEFS
+dnl     CFLAGS          :   $CFLAGS
+    
+dnl   C++ Compiler      : $CXX
+dnl     CXXFLAGS        :   $CXXFLAGS
+
+dnl   Linker            : $LD
+dnl     LDFLAGS         :   $LDFLAGS
+dnl     LIBS            :   $LIBS
+
+dnl   Python            : $PYTHON
+dnl     PY_PREFIX       :   $PY_PREFIX
+dnl     PYTHON_LIBS     :   $PYTHON_LIBS
+dnl     PYTHON_CFLAGS   :   $PYTHON_CFLAGS
+dnl  ])
+
+AC_MSG_RESULT([
+Configure Information:
+  Preprocessor      :
+    CPPFLAGS        : $CPPFLAGS
+
+  C Compiler        : $CC
+    DEFS            : $DEFS
+    CFLAGS          : $CFLAGS
+    
+  Linker            : $LD
+    LDFLAGS         : $LDFLAGS
+    LIBS            : $LIBS
+ ])
