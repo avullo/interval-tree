@@ -37,10 +37,10 @@ struct ilist {
 };
 
 struct ilisttrav {
+
   ilist_t     *list;               /* Paired list */
   ilistnode_t *it;                 /* Current node */
-  ilistnode_t *path[HEIGHT_LIMIT]; /* Traversal path */
-  size_t       top;                /* Top of stack */
+
 };
 
 interval_t *interval_new ( float low, float high, void *data, dup_f dup, rel_f rel, int own ) {
@@ -64,10 +64,14 @@ interval_t *interval_new ( float low, float high, void *data, dup_f dup, rel_f r
   return ri;
 }
 
+interval_t *interval_copy ( const interval_t *i ) {
+  return interval_new ( i->low, i->high, i->data, i->dup, i->rel, 0 );
+}
+
 void interval_delete ( interval_t *i ) {
   if ( i != NULL ) {
     
-    i->rel( i->data );
+    i->rel ( i->data );
     free ( i );
   }
 }
