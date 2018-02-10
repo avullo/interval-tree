@@ -29,7 +29,7 @@ TESTS = $(INTERVAL_TREE_TESTS)
 check_PROGRAMS = $(INTERVAL_TREE_TESTS)
 
 tests_interval_SOURCES = tests/interval.c
-tests_interval_CFLAGS = $(AM_CFLAGS) # so that test find the header files
-tests_interval_LDADD = $(top_builddir)/libitree.a
+tests_interval_CFLAGS = $(AM_CFLAGS) @CHECK_CFLAGS@ # so that test find the header files
+tests_interval_LDADD = $(top_builddir)/libitree.a @CHECK_LIBS@
 
 # noinst_PROGRAMS = tests/interval # tests/interval_list tests/interval_tree
