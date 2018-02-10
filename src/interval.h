@@ -17,9 +17,16 @@ extern "C" {
 #include <stddef.h>
 #endif
 
+/* User-defined item handling */
+typedef void *(*dup_f) ( void *p );
+typedef void  (*rel_f) ( void *p );
+
 typedef struct interval {
   float  low, high; /* Interval boundaries, inclusive */
   void   *data;     /* User-defined content */
+  dup_f  dup;       /* Clone an interval data item */
+  rel_f  rel;       /* Destroy an interval data item */
+  int    own;       /* Whether the interval owns the data, i.e. can destroy */
 } interval_t;
 
 /* Declarations for an interval list, opaque types */
@@ -27,8 +34,10 @@ typedef struct ilist ilist_t;
 typedef struct ilisttrav ilisttrav_t;
   
 /* Interval functions */
-int interval_overlap ( const interval_t*, const interval_t* );
-int interval_equal ( const interval_t*, const interval_t* );
+interval_t *interval_new ( float, float, void*, dup_f, rel_f, int );
+void       interval_delete ( interval_t* );
+int        interval_overlap ( const interval_t*, const interval_t* );
+int        interval_equal ( const interval_t*, const interval_t* );
 
 /* Interval list functions */
 ilist_t     *ilist_new ();

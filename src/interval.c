@@ -23,13 +23,17 @@ using std::size_t;
 /* Note: doesn't own the interval, comes from the tree 
    which is responsible for deallocating the interval. */
 typedef struct ilistnode {
+
   const interval_t* interval;
   struct ilistnode *next;
+
 } ilistnode_t;
   
 struct ilist {
-  ilistnode_t *head, *tail;
+
+  ilistnode_t *head, *tail; /* Dummy nodes */
   size_t      size;
+
 };
 
 struct ilisttrav {
@@ -39,7 +43,44 @@ struct ilisttrav {
   size_t       top;                /* Top of stack */
 };
 
-static ilistnode_t *ilistnode_new(const interval_t *i, ilistnode_t *next) {
+interval_t *interval_new ( float low, float high, void *data, dup_f dup, rel_f rel, int own ) {
+
+  interval_t *ri = (interval_t*) malloc ( sizeof *ri );
+
+  if ( ri == NULL )
+    return NULL;
+
+  ri->low = low;
+  ri->high = high;
+  ri->dup = dup;
+  ri->rel = rel;
+  ri->own = own;
+
+  if ( ri->own )
+    ri->data = data;
+  else
+    ri->data = ri->dup( data );
+  
+  return ri;
+}
+
+void interval_delete ( interval_t *i ) {
+  if ( i != NULL ) {
+    
+    i->rel( i->data );
+    free ( i );
+  }
+}
+
+int interval_overlap(const interval_t* i1, const interval_t* i2) {
+  return i1->low <= i2->high && i2->low <= i1->high;
+}
+
+int interval_equal(const interval_t* i1, const interval_t* i2) {
+  return i1->low == i2->low && i1->high == i2->high;
+}
+
+static ilistnode_t *ilistnode_new( const interval_t *i, ilistnode_t *next ) {
 
   ilistnode_t *node = (ilistnode_t*) malloc ( sizeof *node );
 
@@ -233,13 +274,4 @@ const interval_t  *ilisttrav_prev ( ilisttrav_t *trav ) {
   trav->it = it;
   
   return trav->it == trav->list->head || trav->it == NULL ? NULL : trav->it->interval;
-}
-
-
-int interval_overlap(const interval_t* i1, const interval_t* i2) {
-  return i1->low <= i2->high && i2->low <= i1->high;
-}
-
-int interval_equal(const interval_t* i1, const interval_t* i2) {
-  return i1->low == i2->low && i1->high == i2->high;
 }
