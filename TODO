@@ -1,8 +1,6 @@
-- MIT license?
 - Copyright header, reminding to license like e.g. Ensembl
-- README
+- Complete README
 - Changelog
-- AUTHORS
 - Source code documentation, doxygen style
 - Separate interval/interval list sources
 - Find all overlapping intervals
@@ -11,3 +9,4 @@
 - Interval tree test suite
 - Libtool to provide either static/shared library
 - More robust interface, i.e. return types, interval boundaries (specify tolerance for comparison) etc.
+- Travis CI
