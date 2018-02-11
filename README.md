@@ -1,22 +1,39 @@
-# About libitree
+# libitree
+
+- [About libitree](#about-libitree)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Supported Compilers](#supported-compilers)
+- [License and Copyright](#license-and-copyright)
+- [Acknowledgements](#acknowledgemts)
+- [Projects using libitree](#projects-using-libitree)
+
+## About libitree
 
 Libitree is a simple C library for handling [interval trees](https://en.wikipedia.org/wiki/Interval_tree).
 
+To be completed.
+
 ## Installation
 
-Libitree has the following dependencies:
+```sh
+$ ./configure
+$ make
+$ make check
+$ sudo make install
+```
 
-* [automake](https://www.gnu.org/software/automake/)-1.9.6 (1.11.3 on OS X if you are using /usr/bin/ar)
-* [autoconf](https://www.gnu.org/software/autoconf/)-2.59
-* [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)-0.20
+See INSTALL for more detailed building and installation instructions.
 
-The versions specified may be higher than those actually needed.
+## Usage
 
-See INSTALL for building and installation instructions.
+TODO
 
 ## Supported Compilers
 
-## License
+TODO
+
+## License and Copyright
 
 <img align="right" src="http://opensource.org/trademarks/opensource/OSI-Approved-License-100x137.png">
 
@@ -38,3 +55,7 @@ Libitree has been designed as an expanded adaptation of this library.
 Julienne's library can be found at:
 
 http://www.eternallyconfuzzled.com/Libraries.aspx
+
+## Projects using libitree
+
+TODO
