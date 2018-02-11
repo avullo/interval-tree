@@ -5,7 +5,7 @@
 - [Usage](#usage)
 - [Supported Compilers](#supported-compilers)
 - [License and Copyright](#license-and-copyright)
-- [Acknowledgements](#acknowledgemets)
+- [Acknowledgements](#acknowledgements)
 - [Projects using libitree](#projects-using-libitree)
 
 ## About libitree
