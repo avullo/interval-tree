@@ -5,7 +5,7 @@
 - [Usage](#usage)
 - [Supported Compilers](#supported-compilers)
 - [License and Copyright](#license-and-copyright)
-- [Acknowledgements](#acknowledgemts)
+- [Acknowledgements](#acknowledgemets)
 - [Projects using libitree](#projects-using-libitree)
 
 ## About libitree
@@ -37,7 +37,7 @@ TODO
 
 <img align="right" src="http://opensource.org/trademarks/opensource/OSI-Approved-License-100x137.png">
 
-The class is licensed under the [MIT License](http://opensource.org/licenses/MIT):
+The library is licensed under the [MIT License](http://opensource.org/licenses/MIT):
 
 Copyright &copy; 2018 [Alessandro Vullo](https://avullo.github.io)
 
