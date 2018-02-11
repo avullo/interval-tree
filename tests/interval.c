@@ -101,7 +101,7 @@ END_TEST
 
 static Suite *interval_suite(void) {
     Suite *s;
-    TCase *tc_core;
+    TCase *tc_core, *tc_iops;
 
     s = suite_create("Interval");
 
@@ -110,7 +110,7 @@ static Suite *interval_suite(void) {
     
     tcase_add_test(tc_core, interval_creation);
     tcase_add_test(tc_core, interval_duplication);
-    tcase_add_test(tc_ops, interval_comparison);
+    tcase_add_test(tc_iops, interval_comparison);
     
     suite_add_tcase(s, tc_core);
     suite_add_tcase(s, tc_iops);
