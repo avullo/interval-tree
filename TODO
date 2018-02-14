@@ -1,12 +1,9 @@
-- Copyright header, reminding to license like e.g. Ensembl
-- Complete README
-- Changelog
-- Source code documentation, doxygen style
-- Separate interval/interval list sources
-- Find all overlapping intervals
-- Finish interval test suite
 - Interval list test suite
 - Interval tree test suite
+- Find all overlapping intervals
+- Complete README
+- ChangeLog
+- Source code documentation, doxygen style, examples
 - Libtool to provide either static/shared library
 - More robust interface, i.e. return types, interval boundaries (specify tolerance for comparison) etc.
 - Travis CI
