@@ -79,21 +79,18 @@ END_TEST
 
 START_TEST(interval_comparison)
 {
-  /* int dummy = 10; */
-  /* interval_t *ints[] = { */
-  /*   interval_new ( 10, 20, &dummy, clone_data, destroy_data ) */
-  /* }; */
-  /* interval_t *icopy = interval_copy ( i ); */
-  
-  /* ck_assert ( icopy ); */
-  /* ck_assert_ptr_ne ( i, icopy ); */
-  /* ck_assert_ptr_ne ( i->data, icopy->data ); */
-  /* ck_assert_int_eq ( icopy->low, 10 ); */
-  /* ck_assert_int_eq ( icopy->high, 20 ); */
-  /* ck_assert_int_eq ( get_data ( icopy->data ), 10 ); */
-    
-  /* interval_delete( i ); */
-  /* interval_delete( icopy ); */
+  int dummy = 10;
+  interval_t *i1 = interval_new ( 10.0, 20.0, &dummy, clone_data, destroy_data ),
+    *i2 = interval_new ( 5.0, 15.0, &dummy, clone_data, destroy_data ),
+    *i3 = interval_new ( 16.0, 25.0, &dummy, clone_data, destroy_data );
+
+  ck_assert(interval_overlap(i1, i2));
+  ck_assert(interval_overlap(i1, i3));
+  ck_assert(!interval_overlap(i2, i3));
+
+  interval_delete( i1 );
+  interval_delete( i2 );
+  interval_delete( i3 );
   
 }
 END_TEST
