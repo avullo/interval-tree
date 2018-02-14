@@ -19,7 +19,6 @@ AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([subdir-objects foreign -Wall -Werror])
 PKG_PROG_PKG_CONFIG
 AM_PROG_AR
-# PKG_PROG_PKG_CONFIG
 
 # Remember externally set CFLAGS
 # EXTERNAL_CFLAGS="$CFLAGS"
@@ -46,7 +45,11 @@ PKG_CHECK_MODULES([CHECK], [check])
 
 # Checks for header files.
 AC_HEADER_STDC
+AC_CHECK_HEADERS([stddef.h])
 AC_CHECK_HEADERS([stdio.h])
+AC_CHECK_HEADERS([math.h])
+AC_CHECK_HEADERS([float.h])
+AC_CHECK_HEADERS([stdbool.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
