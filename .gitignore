@@ -86,4 +86,8 @@ stamp-h1
 *.gcno
 *.gcda
 ar-lib
+test-driver
 src/.dirstamp
+src/*~
+tests/.dirstamp
+tests/*~
