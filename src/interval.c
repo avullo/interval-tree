@@ -72,6 +72,14 @@ int interval_overlap(const interval_t* i1, const interval_t* i2) {
   return i1->low <= i2->high && i2->low <= i1->high;
 }
 
-int interval_equal(const interval_t* i1, const interval_t* i2) {
-  return i1->low == i2->low && i1->high == i2->high;
-}
+/*
+ * WARNING
+ *
+ * Comparison of floating-point values does not guarantee the correct results
+ * and is subject to machine-dependent behaviour.
+ *
+ * This is critical and needs to be revised.
+ */
+/* int interval_equal(const interval_t* i1, const interval_t* i2) { */
+/*   return i1->low == i2->low && i1->high == i2->high; */
+/* } */
