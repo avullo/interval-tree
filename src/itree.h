@@ -60,7 +60,7 @@ void       itree_delete ( itree_t *tree );
 interval_t *itree_find ( itree_t *tree, interval_t *interval );
 interval_t *itree_findall ( itree_t *tree, interval_t *interval );
 int        itree_insert ( itree_t *tree, interval_t *interval );
-int        itree_erase ( itree_t *tree, interval_t *interval );
+int        itree_remove ( itree_t *tree, interval_t *interval );
 size_t     itree_size ( itree_t *tree );
 
 /* Tree traversal functions */

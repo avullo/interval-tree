@@ -303,7 +303,7 @@ int itree_insert ( itree_t *tree, interval_t *interval )
   return 1;
 }
 
-int itree_erase ( itree_t *tree, interval_t *interval )
+int itree_remove ( itree_t *tree, interval_t *interval )
 {
   if ( tree->root != NULL ) {
     itreenode_t *it, *up[HEIGHT_LIMIT];
