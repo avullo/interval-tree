@@ -63,6 +63,7 @@ START_TEST(interval_list)
   int i = 1;
   for(item = ilisttrav_first(trav); item!=NULL; item=ilisttrav_next(trav), ++i) {
     ck_assert ( item );
+    ck_assert_ptr_eq ( item, intervals[i-1] );
     ck_assert_int_eq ( item->low, i*10 );
     ck_assert_int_eq ( item->high, (i+1)*10 );
     ck_assert_int_eq ( get_data ( item->data ), i );
@@ -70,6 +71,7 @@ START_TEST(interval_list)
   
   for(i=6, item = ilisttrav_last(trav); item!=NULL; item=ilisttrav_prev(trav), --i) {
     ck_assert ( item );
+    ck_assert_ptr_eq ( item, intervals[i-1] );
     ck_assert_int_eq ( item->low, i*10 );
     ck_assert_int_eq ( item->high, (i+1)*10 );
     ck_assert_int_eq ( get_data ( item->data ), i );    
@@ -78,8 +80,16 @@ START_TEST(interval_list)
   ilisttrav_delete( trav );
   ilist_delete( list );
 
-  for(i=0; i<6; ++i)
-    interval_delete( intervals[i] );
+  for(i=1; i<=6; ++i) {
+    /* List does not "own" the data so deallocation 
+       must not have destroyed original data */
+    ck_assert ( intervals[i-1] );
+    ck_assert_int_eq ( intervals[i-1]->low, i*10 );
+    ck_assert_int_eq ( intervals[i-1]->high, (i+1)*10 );
+    ck_assert_int_eq ( get_data ( intervals[i-1]->data ), i );
+    
+    interval_delete( intervals[i-1] );
+  }
 
 }
 END_TEST
