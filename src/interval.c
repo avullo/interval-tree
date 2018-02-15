@@ -80,6 +80,6 @@ int interval_overlap(const interval_t* i1, const interval_t* i2) {
  *
  * This is critical and needs to be revised.
  */
-/* int interval_equal(const interval_t* i1, const interval_t* i2) { */
-/*   return i1->low == i2->low && i1->high == i2->high; */
-/* } */
+int interval_equal(const interval_t* i1, const interval_t* i2) {
+  return i1->low == i2->low && i1->high == i2->high;
+}
