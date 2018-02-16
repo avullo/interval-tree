@@ -109,11 +109,36 @@ START_TEST(tree_search)
   
   for(int i=0; i<6; ++i)
     itree_insert ( tree, intervals[i] );
-  
+
+  int dummy = 10;
+  interval_t *query = interval_new( 6., 7., &dummy, clone_data, destroy_data );
+  interval_t *result = itree_find( tree, query );
+  ck_assert ( result );
+  ck_assert ( result->low == 5 );
+  ck_assert ( result->high == 20 );
+
+  query->low = 1.;
+  query->high = 4.;
+  result = itree_find ( tree, query );
+  ck_assert ( !result );
+
+  query->low = 18.;
+  query->high = 25.;
+  result = itree_find( tree, query );
+  ck_assert ( result );
+  ck_assert ( result->low == 15 );
+  ck_assert ( result->high == 20 );
+
+  /* 
+   * TODO: find all overlapping intervals
+   */
+
+  interval_delete ( query );
   itree_delete ( tree );
   destroy_intervals( intervals );
 }
 END_TEST
+
 
 static Suite *interval_suite(void) {
     Suite *s;
@@ -124,6 +149,7 @@ static Suite *interval_suite(void) {
     tc_core = tcase_create("Core"); /* Core test case */
     tcase_add_test(tc_core, tree_creation);
     tcase_add_test(tc_core, tree_indel);
+    tcase_add_test(tc_core, tree_search);
     
     suite_add_tcase(s, tc_core);
     
