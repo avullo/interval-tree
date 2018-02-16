@@ -35,10 +35,6 @@ using std::size_t;
 #include <stdio.h>
 #endif
 
-#ifndef HEIGHT_LIMIT
-#define HEIGHT_LIMIT 64
-#endif
-
 interval_t *interval_new ( float low, float high, void *data, dup_f dup, rel_f rel ) {
 
   interval_t *ri = (interval_t*) malloc ( sizeof *ri );
