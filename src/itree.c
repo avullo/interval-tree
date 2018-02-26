@@ -32,7 +32,6 @@
   http://www.eternallyconfuzzled.com/Libraries.aspx
 
 */
-#include "interval.h"
 #include "itree.h"
 
 #ifdef __cplusplus
@@ -228,14 +227,48 @@ interval_t *itree_find ( itree_t *tree, interval_t *interval )
   return it == NULL ? NULL : it->interval;
 }
 
-interval_t *itree_findall(itree_t *tree, interval_t *interval )
+void search ( itreenode_t *node, interval_t *interval, ilist_t *results )
 {
 
-  itreenode_t *it = tree->root;
+  /*
+   * If interval is to the right of the rightmost point of any interval 
+   * in this node and all its children, there won't be any matches
+   */
+  if ( node == NULL || interval->low > node->max ) 
+    return;
 
-  return it == NULL ? NULL : it->interval;
+  /* search the left subtree */
+  if ( node->link[0] != NULL && node->link[0]->max >= interval->low )
+    search ( node->link[0], interval, results );
+
+  /* search this node */
+  if ( interval_overlap ( node->interval, interval ) )
+    ilist_append ( results, node->interval );
+
+  /*
+   * if interval is to the left of the start of this interval
+   * it can't be in any child to the right
+   */
+  if ( interval->high < node->interval->low )
+    return;
+
+  /* search the right subtree */
+  search ( node->link[1], interval, results );
 }
 
+ilist_t *itree_findall( itree_t *tree, interval_t *interval )
+{
+
+  ilist_t* results = ilist_new();
+
+  /* empty tree case */
+  if ( tree->root == NULL )
+    return results;
+
+  search ( tree->root, interval, results );
+
+  return results;
+}
 
 int itree_insert ( itree_t *tree, interval_t *interval )
 {
