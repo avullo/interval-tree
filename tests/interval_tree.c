@@ -24,6 +24,7 @@
 
 #include <check.h>
 #include <stdlib.h>
+#include "interval_list.h"
 #include "itree.h"
 
 /* clone an integer */
@@ -85,6 +86,10 @@ START_TEST(tree_indel)
   ck_assert_int_eq ( itree_size ( tree ), 6 );
 
   for(int i=0; i<6; ++i) {
+    /*
+     * TODO: tests the edge cases, when interval equality test
+     *       based on float comparison is not robust
+     */
     ck_assert ( itree_remove ( tree, intervals[i] ) );
     ck_assert_int_eq ( itree_size ( tree ), 5-i );
   }
@@ -129,10 +134,22 @@ START_TEST(tree_search)
   ck_assert ( result->low == 15 );
   ck_assert ( result->high == 20 );
 
-  /* 
-   * TODO: find all overlapping intervals
-   */
-
+  query->low = 8;
+  query->high = 11;
+  ilist_t *results = itree_findall( tree, query );
+  ck_assert( results );
+  ck_assert_int_eq( ilist_size( results ), 2 );
+  
+  ilisttrav_t* trav = ilisttrav_new( results );
+  const interval_t* item;
+  for( item = ilisttrav_first( trav ); item!=NULL; item=ilisttrav_next( trav ) ) {
+    ck_assert ( item );
+    ck_assert ( item->low == 5 || item->low == 10 );
+    ck_assert ( item->high == 20 || item->high == 30 );
+  }
+  ilisttrav_delete( trav );
+  ilist_delete( results );
+  
   interval_delete ( query );
   itree_delete ( tree );
   destroy_intervals( intervals );
