@@ -1,9 +1,9 @@
-- Interval list test suite
-- Interval tree test suite
-- Find all overlapping intervals
+- Travis CI
+ - gcc 4.9 - 7.1/Clang 3.4 - 5.0, linux/OSX
+- Interval test suite
+ - test edge cases for interval equality based on float comparison
 - Complete README
 - ChangeLog
 - Source code documentation, doxygen style, examples
 - Libtool to provide either static/shared library
 - More robust interface, i.e. return types, interval boundaries (specify tolerance for comparison) etc.
-- Travis CI

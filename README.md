@@ -23,6 +23,8 @@ $ make check
 $ sudo make install
 ```
 
+This will install the static library libitree.a in the autotools default location (/usr/local/lib). Support for building a shared library will be added soon.
+
 See INSTALL for more detailed building and installation instructions.
 
 ## Usage
@@ -39,7 +41,7 @@ The following compilers are currently used in continuous integration at [Travis]
 
 | Compiler        | Operating System             | Version String |
 |-----------------|------------------------------|----------------|
-| GCC 4.8.4       | Ubuntu 14.04.3 LTS           | g++-4.9 (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4 |
+| GCC 4.8.4       | Ubuntu 14.04.5 LTS           | g++-4.9 (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4 |
 
 
 ## License and Copyright
@@ -66,4 +68,6 @@ Julienne's library can be found at:
 http://www.eternallyconfuzzled.com/Libraries.aspx
 
 ## Projects using libitree
+
+[ensembl-xs](https:://github.com/Ensembl/ensembl-xs)
 
