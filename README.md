@@ -69,5 +69,5 @@ http://www.eternallyconfuzzled.com/Libraries.aspx
 
 ## Projects using libitree
 
-[ensembl-xs](https:://github.com/Ensembl/ensembl-xs)
+[ensembl-xs](https://github.com/Ensembl/ensembl-xs)
 
