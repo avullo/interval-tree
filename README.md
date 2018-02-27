@@ -1,5 +1,7 @@
 # libitree
 
+[![Build Status](https://travis-ci.org/avullo/interval-tree.svg?branch=master)](https://travis-ci.org/avullo/interval-tree)
+
 - [About libitree](#about-libitree)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -11,8 +13,6 @@
 ## About libitree
 
 Libitree is a simple C library for handling [interval trees](https://en.wikipedia.org/wiki/Interval_tree).
-
-To be completed.
 
 ## Installation
 
@@ -27,11 +27,20 @@ See INSTALL for more detailed building and installation instructions.
 
 ## Usage
 
-TODO
+Proper documentation will be added soon. At the moment, look at the test suite under the _tests_ directory, the _interval_tree.c_ test suite in particular, for examples on how to use the library.
 
 ## Supported Compilers
 
-TODO
+The following compilers are known to work:
+
+- GCC 4.8.4, 5.4.0
+
+The following compilers are currently used in continuous integration at [Travis](https://travis-ci.org/avullo/interval-tree):
+
+| Compiler        | Operating System             | Version String |
+|-----------------|------------------------------|----------------|
+| GCC 4.8.4       | Ubuntu 14.04.3 LTS           | g++-4.9 (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4 |
+
 
 ## License and Copyright
 
@@ -58,4 +67,3 @@ http://www.eternallyconfuzzled.com/Libraries.aspx
 
 ## Projects using libitree
 
-TODO
