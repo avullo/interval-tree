@@ -16,7 +16,7 @@ matrix:
     addons:
       apt:
         sources: ['ubuntu-toolchain-r-test']
-        packages: ['gcc-4.9', 'ninja-build']
+        packages: ['check', 'gcc-4.9', 'ninja-build']
 
   - os: linux
     compiler: gcc
@@ -24,7 +24,7 @@ matrix:
     addons:
       apt:
         sources: ['ubuntu-toolchain-r-test']
-        packages: ['gcc-5', 'ninja-build']
+        packages: ['check', 'gcc-5', 'ninja-build']
 
   - os: linux
     compiler: gcc
@@ -32,7 +32,7 @@ matrix:
     addons:
       apt:
         sources: ['ubuntu-toolchain-r-test']
-        packages: ['gcc-6', 'ninja-build']
+        packages: ['check', 'gcc-6', 'ninja-build']
 
   - os: linux
     compiler: gcc
@@ -40,7 +40,7 @@ matrix:
     addons:
       apt:
         sources: ['ubuntu-toolchain-r-test']
-        packages: ['gcc-7', 'ninja-build']
+        packages: ['check', 'gcc-7', 'ninja-build']
 
 script:
   # make sure CXX is correctly set
