@@ -3,6 +3,11 @@ language: c
 matrix:
   include:
 
+  # OSX / Clang
+
+  - os: osx
+    osx_image: xcode6.4
+
   # Linux / GCC
 
   - os: linux
