@@ -6,6 +6,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Supported Compilers](#supported-compilers)
+- [Known Bugs and Limitations](#bugs)
 - [License and Copyright](#license-and-copyright)
 - [Acknowledgements](#acknowledgements)
 - [Projects using libitree](#projects-using-libitree)
@@ -54,7 +55,9 @@ In particular, the following compilers are currently used in continuous integrat
 | Clang 4.0.1     | Ubuntu 14.04.5 LTS           | clang version 4.0.1-svn305264-1~exp1 (branches/release_40) |
 | Clang 5.0.0     | Ubuntu 14.04.5 LTS           | clang version 5.0.0-svn310902-1~exp1 (branches/release_500_final) |
 
+## Known Bugs and Limitations
 
+Interval equality checks are at the moment based on float comparison which is obviously not ideal. As a result, the structure of the tree and the results of search queries might slightly vary across different architectures. I will switch to using a more robust approach when finding a rather stable solution.
 
 ## License and Copyright
 

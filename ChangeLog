@@ -1,2 +1,2 @@
-2018-02-XX  avullo
-	* First release, describe
+2018-03-17  avullo
+  * First full release, static library build with tested support for Linux/GCC/Clang
