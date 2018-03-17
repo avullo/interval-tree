@@ -5,6 +5,51 @@ addons:
     packages:
     - check
 
+matrix:
+  include:
+
+  # Linux / GCC
+
+  - os: linux
+    compiler: gcc
+    env: COMPILER=gcc-4.9
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test']
+        packages: ['gcc-4.9', 'ninja-build']
+
+  - os: linux
+    compiler: gcc
+    env: COMPILER=gcc-5
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test']
+        packages: ['gcc-5', 'ninja-build']
+
+  - os: linux
+    compiler: gcc
+    env: COMPILER=gcc-6
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test']
+        packages: ['gcc-6', 'ninja-build']
+
+  - os: linux
+    compiler: gcc
+    env: COMPILER=gcc-7
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test']
+        packages: ['gcc-7', 'ninja-build']
+
 script:
+  # make sure CXX is correctly set
+  - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
+
+  # show OS/compiler version
+  - uname -a
+  - $CXX --version
+
+  # compile and execute unit tests
   - autoreconf -iv
   - ./configure && make && make check
