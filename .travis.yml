@@ -37,6 +37,64 @@ matrix:
         sources: ['ubuntu-toolchain-r-test']
         packages: ['check', 'gcc-7', 'ninja-build']
 
+  # Linux / Clang
+
+  - os: linux
+    compiler: clang
+    env: COMPILER=clang-3.5
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.5']
+        packages: ['gcc-6', 'clang-3.5', 'ninja-build']
+
+  - os: linux
+    compiler: clang
+    env: COMPILER=clang-3.6
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.6']
+        packages: ['gcc-6', 'clang-3.6', 'ninja-build']
+
+  - os: linux
+    compiler: clang
+    env: COMPILER=clang-3.7
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.7']
+        packages: ['gcc-6', 'clang-3.7', 'ninja-build']
+
+  - os: linux
+    compiler: clang
+    env: COMPILER=clang-3.8
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test']
+        packages: ['gcc-6', 'clang-3.8', 'ninja-build']
+
+  - os: linux
+    compiler: clang
+    env: COMPILER=clang-3.9
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test']
+        packages: ['gcc-6', 'clang-3.9', 'ninja-build']
+
+  - os: linux
+    compiler: clang
+    env: COMPILER=clang-4.0
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-4.0']
+        packages: ['gcc-6', 'clang-4.0', 'ninja-build']
+
+  - os: linux
+    compiler: clang
+    env: COMPILER=clang-5.0
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
+        packages: ['gcc-6', 'clang-5.0', 'ninja-build']
+
 script:
   # make sure CXX is correctly set
   - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
