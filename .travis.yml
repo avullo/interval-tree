@@ -101,6 +101,14 @@ matrix:
         packages: ['check', 'gcc-6', 'clang-5.0', 'ninja-build']
 
 script:
+  # get check and Ninja (only for systems with brew - macOS)
+  - |
+     if [[ (-x $(which brew)) ]]; then
+       brew update
+       brew install check ninja
+       cmake --version
+     fi
+
   # make sure CXX is correctly set
   - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
 
