@@ -35,13 +35,17 @@ Proper documentation will be added soon. At the moment, look at the test suite u
 
 The following compilers are known to work:
 
-- GCC 4.8.4, 5.4.0
+- GCC 4.8 - 7.2
 
-The following compilers are currently used in continuous integration at [Travis](https://travis-ci.org/avullo/interval-tree):
+In particular, the following compilers are currently used in continuous integration at [Travis](https://travis-ci.org/avullo/interval-tree):
 
 | Compiler        | Operating System             | Version String |
 |-----------------|------------------------------|----------------|
-| GCC 4.8.4       | Ubuntu 14.04.5 LTS           | g++-4.9 (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4 |
+| GCC 4.9.4       | Ubuntu 14.04.5 LTS           | g++-4.9 Ubuntu 4.9.4-2ubuntu1~14.04.1) 4.9.4 |
+| GCC 5.4.1       | Ubuntu 14.04.5 LTS           | gcc-5 Ubuntu 5.4.1-2ubuntu1~14.04 5.4.1 |
+| GCC 6.3.0       | Ubuntu 14.04.5 LTS           | gcc-6 Ubuntu/Linaro 6.3.0-18ubuntu2~14.04 6.3.0 |
+| GCC 7.2.0       | Ubuntu 14.04.5 LTS           | gcc-7 Ubuntu 7.2.0-1ubuntu1~14.04) 7.2.0 |
+
 
 
 ## License and Copyright
