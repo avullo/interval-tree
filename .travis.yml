@@ -143,3 +143,11 @@ script:
   # compile and execute unit tests
   - autoreconf -iv
   - ./configure && make && make check
+
+  # check if homebrew works (only checks develop branch)   
+  - if [ `which brew` ]; then   
+    brew update ;   
+    brew tap avullo/interval-tree ;    
+    brew install avullo_interval_tree --HEAD ;    
+    brew test avullo_interval_tree ;    
+    fi
