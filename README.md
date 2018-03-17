@@ -72,12 +72,9 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
 ## Acknowledgements
 
-I am very grateful to Julienne Walker for generously providing the source code of his production quality C library for handling AVL balanced trees.
-Libitree has been designed as an expanded adaptation of this library.
+I am very grateful to Julienne Walker for generously providing the source code of his production quality C [AVL balanced tree library](http://www.eternallyconfuzzled.com/Libraries.aspx). Libitree has been designed as an expanded adaptation of this library. 
 
-Julienne's library can be found at:
-
-http://www.eternallyconfuzzled.com/Libraries.aspx
+Thanks to [Niels Lohmann](http://nlohmann.me) from which I borrowed the skeleton of the travis configuration file from his JSON C++ library.
 
 ## Projects using libitree
 

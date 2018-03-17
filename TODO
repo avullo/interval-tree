@@ -1,5 +1,5 @@
 - Travis CI
- - gcc 4.9 - 7.1/Clang 3.4 - 5.0, linux/OSX
+ - OSX xcode 6-9 build (maybe need a formula)
 - Interval test suite
  - test edge cases for interval equality based on float comparison
 - Complete README
