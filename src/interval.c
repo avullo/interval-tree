@@ -56,9 +56,9 @@ interval_t *interval_copy ( const interval_t *i ) {
 }
 
 void interval_delete ( interval_t *i ) {
-  if ( i != NULL ) {
-    
-    i->rel ( i->data );
+  if ( i != NULL ) {    
+    if ( i->data )
+      i->rel ( i->data );
     free ( i );
   }
 

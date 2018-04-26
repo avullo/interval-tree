@@ -121,6 +121,8 @@ ilist_t *ilist_new() {
 }
 
 void ilist_delete(ilist_t *list) {
+  if ( list == NULL )
+    return;
 
   ilistnode_t *it = list->head;
 
@@ -129,6 +131,8 @@ void ilist_delete(ilist_t *list) {
   }
 
   ilistnode_delete( it ); /* Delete tail */
+
+  free ( list );
 }
 
 size_t ilist_size(ilist_t *list) {
